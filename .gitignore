@@ -1,0 +1,31 @@
+# Python 字节码与缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# 环境变量（含 API Key、数据库密码，严禁入库）
+.env
+.env.*
+!.env.example
+
+# IDE 配置
+.idea/
+
+# 本地资料/数据（PDF 条款、费率表等大文件，不入库）
+data/
+*.pdf
+
+# 日志与临时文件
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
