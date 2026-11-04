@@ -3,7 +3,7 @@ from pathlib import Path
 from pydantic import Field, computed_field, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# 以当前文件为基准，找向上2级的父目录，也就是项目的根目录
+# 以当前文件为基准，找向上2级的父目录，也就是项目的根目录 :  APP_ROOT = agent-service\
 APP_ROOT = Path(__file__).resolve().parents[2]
 
 class EnvSettings(BaseSettings):
@@ -28,7 +28,6 @@ class DatabaseSettings(EnvSettings):
     name: str = Field(alias="DB_NAME", default="insurance")
     user: str = Field(alias="DB_USER", default="insurance")
     password: str = Field(alias="DB_PASSWORD", default="insurance123")
-
     # 连接池相关设置
     echo: bool = Field(alias="DB_ECHO", default=False)
     pool_size: int = Field(alias="DB_POOL_SIZE", default=5)
@@ -96,9 +95,3 @@ class Settings(BaseSettings):
 
 # 项目启动直接初始化
 settings = Settings()
-
-# if __name__ == '__main__':
-#     print(settings.rag.milvus_host)
-#     print(settings.rag.milvus_port)
-#     print(settings.rag.milvus_url)
-
