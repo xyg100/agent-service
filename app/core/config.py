@@ -78,7 +78,7 @@ class RAGSettings(EnvSettings):
     def milvus_url(self) -> str:
         return f"http://{self.milvus_host}:{self.milvus_port}"
 
-class JWTSettings:
+class JWTSettings(EnvSettings):
     """JWT相关配置"""
     secret_key: str = Field(alias="JWT_SECRET_KEY")
     algorithm: str = Field(alias="JWT_ALGORITHM", default="HS256")
