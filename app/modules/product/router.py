@@ -6,7 +6,6 @@ from app.modules.product.schemas import ProductResponse
 from app.modules.product.service import ProductService
 
 router = APIRouter(prefix="/api/v1/products", tags=["products"])
-
 async def get_product_service(
     session: AsyncSession = Depends(get_session),
 ) -> ProductService:
