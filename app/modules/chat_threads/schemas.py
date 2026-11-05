@@ -1,7 +1,6 @@
 from datetime import datetime
 from typing import Literal
 from uuid import UUID
-
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -16,6 +15,12 @@ class ChatThreadCreate(BaseModel):
         return value.strip()
 
 
+
+
+
+
+
+
 class ChatThreadRename(BaseModel):
     """重命名会话请求"""
 
@@ -26,14 +31,12 @@ class ChatThreadRename(BaseModel):
     def normalize_title(cls, value: str) -> str:
         return value.strip()
 
-
 class ChatThreadResponse(BaseModel):
     """会话响应"""
     id: UUID
     title: str
     created_at: datetime
     updated_at: datetime
-
 
 class ChatMessageResponse(BaseModel):
     """历史消息响应"""
