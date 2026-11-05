@@ -44,6 +44,8 @@ app = FastAPI(
     debug=settings.app.debug,
     lifespan=lifespan,
 )
+
+#
 @app.exception_handler(ApplicationError)
 async def handle_application_error(
     request: Request,
