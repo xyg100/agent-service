@@ -38,7 +38,6 @@ async def create_chat_thread(
         service: ChatThreadService = Depends(get_service),
 ):
     """创建会话"""
-
     return await service.add(user_id, request.title)
 
 @router.get("", response_model=list[ChatThreadResponse])

@@ -4,9 +4,9 @@ from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column
 from app.common.models import Base, CreateAtMixin, UpdateAtMixin
 
-
-
-
+"""
+字段: 类型注解
+"""
 class ChatThread(Base, CreateAtMixin, UpdateAtMixin):
     """客服会话"""
 

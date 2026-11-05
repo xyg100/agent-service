@@ -1,12 +1,9 @@
 from langgraph.graph.state import CompiledStateGraph
 from sqlalchemy.ext.asyncio import AsyncSession
-
 from app.core.logging import get_logger
 from .repository import ChatThreadRepository
 from .models import ChatThread
 from .exceptions import ChatThreadNotFoundError
-from .schemas import ChatMessageResponse
-from uuid import UUID
 from uuid import UUID
 
 from langchain_core.messages import AIMessage, HumanMessage
@@ -17,14 +14,12 @@ from app.modules.chat_threads.schemas import (
 )
 
 logger = get_logger(__name__)
-
 # LangChain 消息类型 -> 对外暴露的角色
 # 不在表里的类型（system / tool）属于 Agent 内部细节，不对外返回
 ROLE_BY_MESSAGE_TYPE = {
     "human": "user",
     "ai": "assistant",
 }
-
 
 def extract_message_text(content) -> str:
     """从消息 content 中提取纯文本。
