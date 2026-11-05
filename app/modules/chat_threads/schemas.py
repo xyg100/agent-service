@@ -2,7 +2,13 @@ from datetime import datetime
 from typing import Literal
 from uuid import UUID
 from pydantic import BaseModel, Field, field_validator
-
+"""
+schemas : 入参和出参数据定义
+自定义类继承BaseModel,定义字段和类型,用于对数据的校验和转换
+格式:
+    ① 字段 : 类型 = Field ( ... )    #Field 是 Pydantic 的字段描述器：给一个字段附加“默认值 、 校验规则 、 元数据”, 没有默认值就说明是必填项,前端必须来值
+  或② 字段 : 类型
+"""
 
 class ChatThreadCreate(BaseModel):
     """创建会话请求"""
@@ -13,11 +19,6 @@ class ChatThreadCreate(BaseModel):
     @classmethod
     def normalize_title(cls, value: str) -> str:
         return value.strip()
-
-
-
-
-
 
 
 

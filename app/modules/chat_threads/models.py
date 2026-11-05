@@ -1,10 +1,10 @@
 from uuid import UUID, uuid4
-
 from sqlalchemy import BigInteger, String
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column
-
 from app.common.models import Base, CreateAtMixin, UpdateAtMixin
+
+
 
 
 class ChatThread(Base, CreateAtMixin, UpdateAtMixin):
