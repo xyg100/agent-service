@@ -9,7 +9,6 @@ from app.modules.chat_threads.schemas import ChatHistoryResponse
 
 router = APIRouter(prefix="/api/v1/chat-threads", tags=["会话管理的接口"])
 
-
 def get_service(
     request: Request,
     session: AsyncSession = Depends(get_session),
@@ -19,17 +18,6 @@ def get_service(
         session=session,
         agent=request.app.state.agent
         )
-
-
-@router.get("/{thread_id}/messages", response_model=ChatHistoryResponse)
-async def get_chat_history(
-    thread_id: UUID,
-    user_id: Annotated[int, Header(alias="x-user-id")],
-    service: ChatThreadService = Depends(get_service),
-):
-    """查询指定会话的历史消息"""
-
-    return await service.get_history(thread_id, user_id)
 
 @router.post("", response_model=ChatThreadResponse)
 async def create_chat_thread(
@@ -93,3 +81,13 @@ async def patch_chat_thread(
     """重命名会话"""
 
     return await service.rename(thread_id, user_id, request.title)
+
+@router.get("/{thread_id}/messages", response_model=ChatHistoryResponse)
+async def get_chat_history(
+    thread_id: UUID,
+    user_id: Annotated[int, Header(alias="x-user-id")],
+    service: ChatThreadService = Depends(get_service),
+):
+    """查询指定会话的历史消息"""
+
+    return await service.get_history(thread_id, user_id)
