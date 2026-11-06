@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.infra.database import get_session
+from app.modules.product.models import Product
 from app.modules.product.schemas import ProductResponse
 from app.modules.product.service import ProductService
 
@@ -16,7 +17,7 @@ async def get_product_service(
 async def list_products(
     category: str | None = None,
     service: ProductService = Depends(get_product_service),
-) -> list[ProductResponse]:
+) -> list[Product]:
     return await service.list_products(category)
 
 
