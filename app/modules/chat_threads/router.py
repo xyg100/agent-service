@@ -23,7 +23,7 @@ async def create_chat_thread(
         user_id: Annotated[int, Header(alias="x-user-id")],
         request = ChatThreadCreate,
         service = Depends(get_chat_service)
-    )->ChatThreadResponse:
+    ):
     return await service.add_chat_thread(user_id,request.title)
 
 
