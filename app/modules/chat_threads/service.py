@@ -1,3 +1,4 @@
+from colorama import initialise
 from langgraph.graph.state import CompiledStateGraph
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.logging import get_logger
@@ -19,4 +20,9 @@ ROLE_BY_MESSAGE_TYPE = {
     "human": "user",
     "ai": "assistant",
 }
+class ChatService():
+    def __int__(self,session:AsyncSession):
+        self.session = session
+        repository =
+
 
