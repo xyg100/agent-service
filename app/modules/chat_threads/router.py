@@ -12,7 +12,16 @@ router = APIRouter(prefix="/api/v1/chat-threads", tags=["Chat"])
 
 def get_chat_service(
         session: AsyncSession = Depends(get_session)
-        ) ->ChatService:
+    ) -> ChatService:
     return ChatService(session)
 
-async def create_chat():
+
+async def create_chat(
+        user_id: Annotated[int, Header(alias="x-user-id")],
+        request = ChatThreadCreate,
+        service = Depends(get_chat_service)
+    )->ChatThreadResponse:
+    service.add(user_id,request.title)
+
+
+

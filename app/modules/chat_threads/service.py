@@ -23,6 +23,5 @@ ROLE_BY_MESSAGE_TYPE = {
 class ChatService():
     def __int__(self,session:AsyncSession):
         self.session = session
-        repository =
 
 
