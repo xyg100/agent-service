@@ -12,6 +12,7 @@ from app.modules.chat_threads.schemas import (
     ChatHistoryResponse,
     ChatMessageResponse,
 )
+from .repository import ChatRepository
 
 logger = get_logger(__name__)
 # LangChain 消息类型 -> 对外暴露的角色
@@ -20,8 +21,15 @@ ROLE_BY_MESSAGE_TYPE = {
     "human": "user",
     "ai": "assistant",
 }
+
 class ChatService():
     def __int__(self,session:AsyncSession):
         self.session = session
+        self.repository = ChatRepository(session)
 
+    async def add_chat_thread(self,user_id:int,title:str):
+        async with self.session.begin():
+            chat_thread = ChatThread(user_id = user_id,title = title)
+            await self.repository.add_chat_thread(chat_thread)
 
+            return chat_thread

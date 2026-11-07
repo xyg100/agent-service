@@ -7,6 +7,7 @@ class ChatRepository:
     def __init__(self,session:AsyncSession):
         self.session = session
 
-    async def chat_create(self,):
+    async def add_chat_thread(self,chat_thread:ChatThread):
+        self.session.add(chat_thread)
 
 

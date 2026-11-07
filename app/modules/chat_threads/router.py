@@ -1,5 +1,7 @@
 from typing import Annotated
 
+from langchain_classic.schema import retriever
+
 from .schemas import *
 from fastapi import APIRouter, Depends, Header, Request, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,12 +18,13 @@ def get_chat_service(
     return ChatService(session)
 
 
-async def create_chat(
+@router.post("",response_model=ChatThreadResponse)
+async def create_chat_thread(
         user_id: Annotated[int, Header(alias="x-user-id")],
         request = ChatThreadCreate,
         service = Depends(get_chat_service)
     )->ChatThreadResponse:
-    service.add(user_id,request.title)
+    return await service.add_chat_thread(user_id,request.title)
 
 
 
