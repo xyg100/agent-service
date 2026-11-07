@@ -7,12 +7,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.modules.chat.schemas import ChatRequest
 from app.modules.chat_threads.exceptions import ChatThreadNotFoundError
-from app.modules.chat_threads.repository import ChatThreadRepository
+from app.modules.chat_threads.repository import ChatRepository
 
 
 class ChatService:
     def __init__(self, session: AsyncSession, agent: CompiledStateGraph):
-        self.repository = ChatThreadRepository(session)
+        self.repository = ChatRepository(session)
         self.agent = agent
 
     async def chat_stream(
