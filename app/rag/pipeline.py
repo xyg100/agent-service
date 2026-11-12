@@ -33,7 +33,7 @@ class RAGPipeline:
     def __init__(self, vector_store: Milvus) -> None:
         self._vector_store = vector_store
 
-        # 1.初始化文档解析工具
+        # 1.初始化文档解析工具mineru
         self._mineru = MinerU(settings.rag.mineru_token)
 
         # 2.初始化大模型
