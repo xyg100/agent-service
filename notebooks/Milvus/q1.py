@@ -1,3 +1,4 @@
+from langchain_ollama import OllamaEmbeddings
 from langchain_text_splitters import MarkdownHeaderTextSplitter
 def prepare_docs():
     # =============1.准备文档================
@@ -19,5 +20,9 @@ def prepare_docs():
         strip_headers =  False  # 在正文中是否去除标题，False，不去除
     )
 
+    docs = markdown_splitter.split_text(doc)
+    return docs
+
 if __name__ == '__main__':
-    prepare_docs()
+    docs =  prepare_docs()
+    print(docs)
