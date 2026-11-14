@@ -33,35 +33,33 @@ class RAGPipeline:
     def __init__(self, vector_store: Milvus) -> None:
         self._vector_store = vector_store
 
-        # 1.初始化文档解析工具mineru
+        # 1.初始化文档解析工具
         self._mineru = MinerU(settings.rag.mineru_token)
 
-        # 2.初始化大模型
         self._model = init_chat_model(
             settings.llm.chat_model,
+            model_provider="deepseek",
             api_key=settings.llm.api_key,
+            base_url=settings.llm.base_url,
             extra_body={"thinking": {"type": "disabled"}},
             max_tokens=10000,
         )
 
         # 2.初始化文档切分工具
         self._markdown_splitter = MarkdownHeaderTextSplitter(
-            # 切分规则,按标题切分
             headers_to_split_on=[
                 ("#", "h1"),
                 ("##", "h2"),
                 ("###", "h3"),
                 ("####", "h4"),
             ],
-            # 是否去除标题前面的空格
             strip_headers=True,
         )
-        # 子块切分器，按段落切分
         self._child_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=500, # 子块最大长度
-            chunk_overlap=50, # 子块重叠长度
-            separators=["\n\n", "\n", "。", "；", ";", "，", ","], # 分隔符
-            keep_separator="end", # 保留分隔符
+            chunk_size=500,
+            chunk_overlap=50,
+            separators=["\n\n", "\n", "。", "；", ";", "，", ","],
+            keep_separator="end",
         )
         logger.info("RAG Pipeline 初始化完成✅️")
 

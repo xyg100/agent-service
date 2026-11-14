@@ -23,7 +23,7 @@ def create_reranker(query: str) -> Function:
         },
     )
 
-
+     
 class ParentChunkRetriever:
 
     def __init__(self, vector_store: Milvus):
