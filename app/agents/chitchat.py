@@ -20,12 +20,13 @@ SYSTEM_MESSAGE = """
 5. 超出能力范围时，如实说明无法提供。
 """.strip()
 
+#最大的对话轮数
 MAX_CHITCHAT_COUNT = 3
 
 
 class ChitchatState(InsuranceAgentState):
     """闲聊子Agent状态"""
-
+    # NotRequired 表示该字段是可选的，如果不传递，则使用默认值
     chitchat_count: NotRequired[int]
 
 
