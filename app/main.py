@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-
+from app.agents.orchestrator import init_insurance_orchestrator
 from app.agents.insurance_advisor import init_insurance_agent
 from app.core.exceptions import ApplicationError
 from app.core.config import settings
@@ -24,19 +24,23 @@ from app.infra.checkpointer import (
 async def lifespan(app: FastAPI):
     logger.info(f"【{settings.app.name}】应用启动中...")
     from app.infra.database import check_database, close_database
+    from app.rag import close_rag  # 导入模块就会初始化
     try:
         # 1.检查数据库连接
         await check_database()
         #2.初始化Checkpointer
         checkpointer = await init_checkpointer()
         # 3.初始化保险顾问Agent
-        app.state.agent = init_insurance_agent(checkpointer)
+        app.state.agent = init_insurance_orchestrator(checkpointer)
+        # init_insurance_agent(checkpointer) 之前的LangChain的
         yield
     finally:
         logger.info("应用关闭中... ")
-        # 3.关闭Checkpointer连接池
+        # 1.关闭RAG资源
+        close_rag()
+        # 2.关闭Checkpointer连接池
         await close_checkpointer()
-        # 4.关闭数据库连接池
+        # 3.关闭数据库连接池
         await close_database()
 
 app = FastAPI(
